@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-@author: Wen Tao Lin
+@author: Wen Tao Lin, Kris Mannino
 """
 from shapely.geometry import Point, box
 from shapely.geometry import mapping
@@ -26,13 +26,13 @@ def generate_rectangle_area(longitude: float,
     max_lat = latitude + height_deg/2
     
     return box(min_lon, min_lat, max_lon, max_lat)
-    
+
+# Radius functionality disabled
 def generate_area(longitude: float, 
                   latitude: float, 
                   radius_in_km: float) -> Point:
     radius_in_degree = radius_in_km / 111.13
     return Point(longitude, latitude).buffer(radius_in_degree)
-        
 
 def crop_image_by_coordinates(path_to_image: str, 
                               output_name: str, 
@@ -69,6 +69,7 @@ def crop_image_by_coordinates(path_to_image: str,
     # Generate the rectangular polygon
     aoi = generate_rectangle_area(center_longitude, center_latitude, width_km, height_km)
 
+    # Radius functionality disabled
     # Generate the circular polygon
     # aoi = generate_area(center_longitude, center_latitude, radius_in_km)
     shapes = [mapping(aoi)]
